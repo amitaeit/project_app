@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:project_app/otp_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -49,11 +54,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  String? password;
+  String? mobile;
   String? email;
 
   TextEditingController textController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   static OutlineInputBorder outlineInputBorder = OutlineInputBorder(borderRadius: BorderRadius.circular(10),
@@ -62,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
           color: Colors.green));
 
   String textValue="Hello";
+
 
   void _incrementCounter() {
     setState(() {
@@ -98,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
 
 
+
             // Column is also a layout widget. It takes a list of children and
             // arranges them vertically. By default, it sizes itself to fit its
             // children horizontally, and tries to be as tall as its parent.
@@ -115,40 +122,50 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextFormField(
-                controller: emailController,
+                controller: mobileController,
+                keyboardType: TextInputType.number,
+                maxLength: 10,
                 decoration: InputDecoration(
                   border:outlineInputBorder,
                   disabledBorder: outlineInputBorder,
                   focusedBorder: outlineInputBorder,
                   focusedErrorBorder: outlineInputBorder.copyWith(borderSide: const BorderSide(color: Colors.blue)),
-                  hintText: "Email"
+                  hintText: "Please enter phone number",
+                  prefixText: "+91"
                 ),
 
               ),
               const SizedBox(
                 height: 20,
               ),
-              TextFormField(
-                controller: passwordController,
-                  decoration: InputDecoration(
-                      border:outlineInputBorder,
-                      disabledBorder: outlineInputBorder,
-                      focusedBorder: outlineInputBorder,
-                      focusedErrorBorder: outlineInputBorder.copyWith(borderSide: const BorderSide(color: Colors.blue)),
-                      label: const Text(
-                        "Password"
-                      )
-
-                  )
-              ),
+              // TextFormField(
+              //   controller: passwordController,
+              //     obscureText: true,
+              //     decoration: InputDecoration(
+              //         border:outlineInputBorder,
+              //         disabledBorder: outlineInputBorder,
+              //         focusedBorder: outlineInputBorder,
+              //         focusedErrorBorder: outlineInputBorder.copyWith(borderSide: const BorderSide(color: Colors.blue)),
+              //         label: const Text(
+              //           "Password"
+              //         )
+              //
+              //     )
+              // ),
               TextButton(
-                  onPressed: (){
-                    email = emailController.text;
-                    password = passwordController.text;
-                    print(email);
-                    print(password);
+                  onPressed: ()async {
+                    await FirebaseAuth.instance.verifyPhoneNumber(
+                      phoneNumber:"+91${mobileController.text}",
+                      verificationCompleted: (PhoneAuthCredential credential) {},
+                      verificationFailed: (FirebaseAuthException e) {},
+                      codeSent: (String verificationId, int? resendToken) {Navigator.of(context).push(
+                          MaterialPageRoute(builder:(context)=>OtpScreen())
+                      );},
+                      codeAutoRetrievalTimeout: (String verificationId) {},
+                    );
+
                   },
-                  child: const Text("Login")
+                  child: const Text("Send OTP")
               )
             ],
           ),

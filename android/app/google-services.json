@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "428078757720",
+    "project_id": "testphoneauth-35c20",
+    "storage_bucket": "testphoneauth-35c20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428078757720:android:fc0edc72d129594a23572d",
+        "android_client_info": {
+          "package_name": "com.amity.project_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428078757720-4c9192l7hrllk3s20m3i8rkd5idapkva.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.amity.project_app",
+            "certificate_hash": "096b9f0864234a0885d6c5a59c894eea21e96174"
+          }
+        },
+        {
+          "client_id": "428078757720-1muotddf5vncinhcoco0lgbl485p8810.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoBLWgYbP7Abu3LDM8jaCu9IgezDE3i9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428078757720-1muotddf5vncinhcoco0lgbl485p8810.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
